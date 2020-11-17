@@ -1,4 +1,4 @@
-package com.chplalex.githubviewer.ui.gallery
+package com.chplalex.githubviewer.ui.patternmvp
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,7 +10,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.chplalex.githubviewer.R
 
-class GalleryFragment : Fragment() {
+class FragmentPatternMVP : Fragment() {
 
     private lateinit var galleryViewModel: GalleryViewModel
 
