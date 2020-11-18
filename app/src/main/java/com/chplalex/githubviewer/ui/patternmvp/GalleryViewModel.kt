@@ -1,4 +1,4 @@
-package com.chplalex.githubviewer.ui.gallery
+package com.chplalex.githubviewer.ui.patternmvp
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

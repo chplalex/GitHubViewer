@@ -2,24 +2,23 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/nav_home">
+    app:startDestination="@+id/nav_pattern_spaghetti">
 
     <fragment
-        android:id="@+id/nav_home"
-        android:name="com.chplalex.githubviewer.ui.home.HomeFragment"
-        android:label="@string/menu_home"
-        tools:layout="@layout/fragment_home" />
+        android:id="@+id/nav_pattern_spaghetti"
+        android:name="com.chplalex.githubviewer.ui.patternspaghetti.FragmentPatternSpaghetti"
+        android:label="@string/menu_pattern_spaghetti"
+        tools:layout="@layout/fragment_pattern" />
 
     <fragment
-        android:id="@+id/nav_gallery"
-        android:name="com.chplalex.githubviewer.ui.gallery.GalleryFragment"
-        android:label="@string/menu_gallery"
+        android:id="@+id/nav_pattern_mvp"
+        android:name="com.chplalex.githubviewer.ui.patternmvp.FragmentPatternMVP"
+        android:label="@string/menu_pattern_mvp"
         tools:layout="@layout/fragment_gallery" />
 
     <fragment
-        android:id="@+id/nav_slideshow"
-        android:name="com.chplalex.githubviewer.ui.slideshow.SlideshowFragment"
-        android:label="@string/menu_slideshow"
+        android:id="@+id/nav_pattern_mvvm"
+        android:name="com.chplalex.githubviewer.ui.patternmvvm.FragmentPatternMVVM"
+        android:label="@string/menu_pattern_mvvm"
         tools:layout="@layout/fragment_slideshow" />
 </navigation>
