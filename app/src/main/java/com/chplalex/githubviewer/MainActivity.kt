@@ -25,17 +25,23 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        bindingMain = ActivityMainBinding.inflate(layoutInflater)
-        bindingBar = AppBarMainBinding.inflate(layoutInflater)
+        //bindingMain = ActivityMainBinding.inflate(layoutInflater)
+        //bindingBar = AppBarMainBinding.inflate(layoutInflater)
 
-        setContentView(bindingMain.root)
+        //setContentView(bindingMain.root)
+        setContentView(R.layout.activity_main)
 
-        setSupportActionBar(bindingBar.toolbar)
+        //setSupportActionBar(bindingBar.toolbar)
+        val toolbar = findViewById<Toolbar>(R.id.toolbar)
+        setSupportActionBar(toolbar)
 
-        bindingBar.fab.setOnClickListener { view ->
+        //bindingBar.fab.setOnClickListener { view ->
+        val fab = findViewById<FloatingActionButton>(R.id.fab)
+        fab.setOnClickListener { view ->
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                     .setAction("Action", null).show()
         }
+        val drawerLayout = findViewById<DrawerLayout>(R.id.drawer_layout)
         val navController = findNavController(R.id.nav_host_fragment)
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
@@ -44,10 +50,13 @@ class MainActivity : AppCompatActivity() {
                 R.id.nav_pattern_spaghetti,
                 R.id.nav_pattern_mvp,
                 R.id.nav_pattern_mvvm
-            ),
-            bindingMain.drawerLayout)
+            ), drawerLayout)
+            //bindingMain.drawerLayout)
+
         setupActionBarWithNavController(navController, appBarConfiguration)
-        bindingMain.navView.setupWithNavController(navController)
+        val navView = findViewById<NavigationView>(R.id.nav_view)
+        //bindingMain.navView.setupWithNavController(navController)
+        navView.setupWithNavController(navController)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

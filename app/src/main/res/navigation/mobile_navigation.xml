@@ -14,11 +14,11 @@
         android:id="@+id/nav_pattern_mvp"
         android:name="com.chplalex.githubviewer.ui.patternmvp.FragmentPatternMVP"
         android:label="@string/menu_pattern_mvp"
-        tools:layout="@layout/fragment_gallery" />
+        tools:layout="@layout/fragment_pattern" />
 
     <fragment
         android:id="@+id/nav_pattern_mvvm"
         android:name="com.chplalex.githubviewer.ui.patternmvvm.FragmentPatternMVVM"
         android:label="@string/menu_pattern_mvvm"
-        tools:layout="@layout/fragment_slideshow" />
+        tools:layout="@layout/fragment_pattern" />
 </navigation>
