@@ -13,9 +13,9 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class FragmentPatternMVP : Fragment(), MVPView {
 
-    private var text01: TextView? = null
-    private var text02: TextView? = null
-    private var text03: TextView? = null
+    private lateinit var text01: TextView
+    private lateinit var text02: TextView
+    private lateinit var text03: TextView
 
     private val mvpPresenter = MVPPresenter(this)
 
@@ -23,20 +23,20 @@ class FragmentPatternMVP : Fragment(), MVPView {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ) = inflater.inflate(R.layout.fragment_pattern, container, false).also { root ->
+    ): View = inflater.inflate(R.layout.fragment_pattern, container, false).apply {
 
-        text01 = root.findViewById<TextView>(R.id.text_01)
-        text02 = root.findViewById<TextView>(R.id.text_02)
-        text03 = root.findViewById<TextView>(R.id.text_03)
+        text01 = findViewById(R.id.text_01)
+        text02 = findViewById(R.id.text_02)
+        text03 = findViewById(R.id.text_03)
 
         savedInstanceState?.let {
-            text01?.text = it.getCharSequence("text01")
-            text02?.text = it.getCharSequence("text02")
-            text03?.text = it.getCharSequence("text03")
+            text01.text = it.getCharSequence("text01")
+            text02.text = it.getCharSequence("text02")
+            text03.text = it.getCharSequence("text03")
         } ?: run {
-            text01?.text = "0"
-            text02?.text = "0"
-            text03?.text = "0"
+            text01.text = "0"
+            text02.text = "0"
+            text03.text = "0"
         }
 
         activity?.findViewById<FloatingActionButton>(R.id.fab)?.setOnClickListener {
@@ -46,16 +46,18 @@ class FragmentPatternMVP : Fragment(), MVPView {
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        text01?.let { outState.putCharSequence("text01", it.text) }
-        text02?.let { outState.putCharSequence("text02", it.text) }
-        text03?.let { outState.putCharSequence("text03", it.text) }
+        if (this::text01.isInitialized && this::text02.isInitialized && this::text03.isInitialized) {
+            outState.putCharSequence("text01", text01.text)
+            outState.putCharSequence("text02", text02.text)
+            outState.putCharSequence("text03", text03.text)
+        }
     }
 
     override fun setText(index: Int, text: String) {
         when (index) {
-            0 -> text01?.text = text
-            1 -> text02?.text = text
-            2 -> text03?.text = text
+            0 -> text01.text = text
+            1 -> text02.text = text
+            2 -> text03.text = text
         }
     }
 }

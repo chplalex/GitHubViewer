@@ -23,19 +23,19 @@ class FragmentPatternMVVM : Fragment() {
         val text02 = root.findViewById<TextView>(R.id.text_02)
         val text03 = root.findViewById<TextView>(R.id.text_03)
 
-        ViewModelProvider(this).get(MVVMViewModel::class.java).also { vm ->
-            vm.liveData01.observe(viewLifecycleOwner, Observer {
+        ViewModelProvider(this).get(MVVMViewModel::class.java).apply {
+            liveData01.observe(viewLifecycleOwner, {
                 text01.text = it
             })
-            vm.liveData02.observe(viewLifecycleOwner, Observer {
+            liveData02.observe(viewLifecycleOwner, {
                 text02.text = it
             })
-            vm.liveData03.observe(viewLifecycleOwner, Observer {
+            liveData03.observe(viewLifecycleOwner, {
                 text03.text = it
             })
 
             activity?.findViewById<FloatingActionButton>(R.id.fab)?.setOnClickListener {
-                vm.fabClicked()
+                fabClicked()
             }
         }
     }
