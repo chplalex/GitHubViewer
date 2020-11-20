@@ -1,4 +1,4 @@
-package com.chplalex.githubviewer
+package com.chplalex.githubviewer.ui
 
 import android.app.Application
 import ru.terrakok.cicerone.Cicerone
