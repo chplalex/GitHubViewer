@@ -6,26 +6,27 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.chplalex.githubviewer.R
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class FragmentPatternMVVM : Fragment() {
-
-    private lateinit var slideshowViewModel: SlideshowViewModel
 
     override fun onCreateView(
             inflater: LayoutInflater,
             container: ViewGroup?,
             savedInstanceState: Bundle?
-    ): View? {
-        slideshowViewModel =
-                ViewModelProvider(this).get(SlideshowViewModel::class.java)
-        val root = inflater.inflate(R.layout.fragment_slideshow, container, false)
-        val textView: TextView = root.findViewById(R.id.text_slideshow)
-        slideshowViewModel.text.observe(viewLifecycleOwner, Observer {
-            textView.text = it
-        })
-        return root
+    ): View? = inflater.inflate(R.layout.fragment_pattern, container, false).also { root ->
+
+        val text01 = root.findViewById<TextView>(R.id.text_01)
+        val text02 = root.findViewById<TextView>(R.id.text_02)
+        val text03 = root.findViewById<TextView>(R.id.text_03)
+
+        ViewModelProvider(this).get(MVVMViewModel::class.java).apply {
+            liveData01.observe(viewLifecycleOwner) { text01.text = it }
+            liveData02.observe(viewLifecycleOwner) { text02.text = it }
+            liveData03.observe(viewLifecycleOwner) { text03.text = it }
+            activity?.findViewById<FloatingActionButton>(R.id.fab)?.setOnClickListener { fabClicked() }
+        }
     }
 }
