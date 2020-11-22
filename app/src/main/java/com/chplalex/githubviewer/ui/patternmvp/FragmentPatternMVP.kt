@@ -6,8 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import com.chplalex.githubviewer.R
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
@@ -25,9 +23,9 @@ class FragmentPatternMVP : Fragment(), MVPView {
         savedInstanceState: Bundle?
     ): View = inflater.inflate(R.layout.fragment_pattern, container, false).apply {
 
-        text01 = findViewById(R.id.text_01)
-        text02 = findViewById(R.id.text_02)
-        text03 = findViewById(R.id.text_03)
+        text01 = findViewById(R.id.text01)
+        text02 = findViewById(R.id.text02)
+        text03 = findViewById(R.id.text03)
 
         savedInstanceState?.let {
             text01.text = it.getCharSequence("text01")

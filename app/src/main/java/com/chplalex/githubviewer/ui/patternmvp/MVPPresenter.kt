@@ -1,7 +1,7 @@
 package com.chplalex.githubviewer.ui.patternmvp
 
 class MVPPresenter(val mvpView: MVPView) {
-    val mvpModel = MVPModel()
+    val mvpModel = MVPModel.getInstance()
 
     fun fabClicked() {
         mvpModel.incCounter()

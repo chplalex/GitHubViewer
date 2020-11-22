@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.chplalex.githubviewer.R
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -23,9 +22,9 @@ class FragmentPatternSpaghetti : Fragment() {
             container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View? = inflater.inflate(R.layout.fragment_pattern, container, false).apply {
-        text01 = findViewById(R.id.text_01)
-        text02 = findViewById(R.id.text_02)
-        text03 = findViewById(R.id.text_03)
+        text01 = findViewById(R.id.text01)
+        text02 = findViewById(R.id.text02)
+        text03 = findViewById(R.id.text03)
 
         savedInstanceState?.let {
             text01.text = it.getCharSequence("text01")

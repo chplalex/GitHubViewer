@@ -18,9 +18,9 @@ class FragmentPatternMVVM : Fragment() {
             savedInstanceState: Bundle?
     ): View? = inflater.inflate(R.layout.fragment_pattern, container, false).also { root ->
 
-        val text01 = root.findViewById<TextView>(R.id.text_01)
-        val text02 = root.findViewById<TextView>(R.id.text_02)
-        val text03 = root.findViewById<TextView>(R.id.text_03)
+        val text01 = root.findViewById<TextView>(R.id.text01)
+        val text02 = root.findViewById<TextView>(R.id.text02)
+        val text03 = root.findViewById<TextView>(R.id.text03)
 
         ViewModelProvider(this).get(MVVMViewModel::class.java).apply {
             liveData01.observe(viewLifecycleOwner) { text01.text = it }

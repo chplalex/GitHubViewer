@@ -8,4 +8,5 @@
     <string name="menu_pattern_spaghetti">Паттерн \"Спагетти\"</string>
     <string name="menu_pattern_mvp">Паттерн MVP</string>
     <string name="menu_pattern_mvvm">Паттерн MVVM</string>
+    <string name="menu_pattern_mvp_moxy">Паттерн MVP + MOXY</string>
 </resources>

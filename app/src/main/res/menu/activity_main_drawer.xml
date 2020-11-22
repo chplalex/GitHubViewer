@@ -13,6 +13,10 @@
             android:icon="@drawable/ic_menu_mvp"
             android:title="@string/menu_pattern_mvp" />
         <item
+            android:id="@+id/nav_pattern_mvp_moxy"
+            android:icon="@drawable/ic_menu_mvp"
+            android:title="@string/menu_pattern_mvp_moxy" />
+        <item
             android:id="@+id/nav_pattern_mvvm"
             android:icon="@drawable/ic_menu_mvvm"
             android:title="@string/menu_pattern_mvvm" />

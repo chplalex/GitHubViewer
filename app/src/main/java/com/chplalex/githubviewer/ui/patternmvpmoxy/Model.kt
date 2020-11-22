@@ -1,7 +1,7 @@
-package com.chplalex.githubviewer.ui.patternmvp
+package com.chplalex.githubviewer.ui.patternmvpmoxy
 
-// используем синглтон, чтобы при пересоздании презентера не терялись данные
-object MVPModel {
+object Model {
+
     private var counter = 0
     private var index = 0
 

@@ -8,29 +8,29 @@
     tools:context=".ui.patternspaghetti.FragmentPatternSpaghetti">
 
     <TextView
-        android:id="@+id/text_01"
+        android:id="@+id/text01"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textAlignment="center"
         android:textSize="40sp"
-        app:layout_constraintBottom_toTopOf="@+id/text_02"
+        app:layout_constraintBottom_toTopOf="@+id/text02"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/text_02"
+        android:id="@+id/text02"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textAlignment="center"
         android:textSize="40sp"
-        app:layout_constraintBottom_toTopOf="@id/text_03"
+        app:layout_constraintBottom_toTopOf="@id/text03"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/text_01" />
+        app:layout_constraintTop_toBottomOf="@id/text01" />
 
     <TextView
-        android:id="@+id/text_03"
+        android:id="@+id/text03"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textAlignment="center"
@@ -38,6 +38,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/text_02" />
+        app:layout_constraintTop_toBottomOf="@id/text02" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
