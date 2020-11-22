@@ -5,10 +5,14 @@ import com.chplalex.githubviewer.mvp.model.repo.GithubUsersRepo
 import com.chplalex.githubviewer.mvp.presenter.list.IUsersListPresenter
 import com.chplalex.githubviewer.mvp.view.UsersView
 import com.chplalex.githubviewer.mvp.view.list.UserItemView
+import com.chplalex.githubviewer.navigation.Screens
 import moxy.MvpPresenter
 import ru.terrakok.cicerone.Router
 
-class UsersPresenter(val router: Router, val usersRepo: GithubUsersRepo) : MvpPresenter<UsersView>() {
+class UsersPresenter(
+    private val router: Router,
+    private val usersRepo: GithubUsersRepo
+) : MvpPresenter<UsersView>() {
 
     class UsersListPresenter : IUsersListPresenter {
 
@@ -22,7 +26,6 @@ class UsersPresenter(val router: Router, val usersRepo: GithubUsersRepo) : MvpPr
         }
 
         override fun getCount() = users.size
-
     }
 
     val usersListPresenter = UsersListPresenter()
@@ -32,8 +35,9 @@ class UsersPresenter(val router: Router, val usersRepo: GithubUsersRepo) : MvpPr
         viewState.init()
         loadData()
 
-        usersListPresenter.itemClickListener = {view ->
-            //router.navigateTo( экран пользователя )
+        usersListPresenter.itemClickListener = {userItemView ->
+            val user = usersListPresenter.users[userItemView.pos]
+            router.navigateTo(Screens.UserScreen(user))
         }
     }
 

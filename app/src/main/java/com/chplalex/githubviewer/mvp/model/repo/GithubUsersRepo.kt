@@ -14,4 +14,9 @@ class GithubUsersRepo {
     )
 
     fun getUsers(): List<GithubUser> = repositories
+
+    fun getUser(login: String): GithubUser {
+        // должен быть запрос в репозиторий по логину и возврат значения или exception
+        return GithubUser(login)
+    }
 }

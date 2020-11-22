@@ -40,5 +40,4 @@ class UsersRvAdapter(val presenter: IUsersListPresenter) :
             tv_login.text = login
         }
     }
-
 }

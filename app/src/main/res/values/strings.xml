@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">GitHub Viewer</string>
+    <string name="fragment_title_user">Профиль пользователя</string>
+    <string name="fragment_title_users">Список пользователей</string>
 </resources>
