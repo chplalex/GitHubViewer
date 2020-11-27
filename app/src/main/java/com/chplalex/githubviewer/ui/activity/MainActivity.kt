@@ -6,6 +6,7 @@ import com.chplalex.githubviewer.ui.BackButtonListener
 import com.chplalex.githubviewer.R
 import com.chplalex.githubviewer.mvp.presenter.MainPresenter
 import com.chplalex.githubviewer.mvp.view.MainView
+import com.chplalex.githubviewer.rx.Creation
 import moxy.MvpAppCompatActivity
 import moxy.ktx.moxyPresenter
 import ru.terrakok.cicerone.android.support.SupportAppNavigator
@@ -22,6 +23,8 @@ class MainActivity : MvpAppCompatActivity(), MainView {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        Creation().exec()
     }
 
     /**
