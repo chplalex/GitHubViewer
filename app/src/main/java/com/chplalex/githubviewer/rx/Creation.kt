@@ -3,6 +3,8 @@ package com.chplalex.githubviewer.rx
 import android.util.Log
 import com.chplalex.githubviewer.TAG
 import io.reactivex.rxjava3.core.Observable
+import io.reactivex.rxjava3.core.ObservableEmitter
+import io.reactivex.rxjava3.core.ObservableOnSubscribe
 import io.reactivex.rxjava3.core.Observer
 import io.reactivex.rxjava3.disposables.Disposable
 import java.util.concurrent.TimeUnit
@@ -15,22 +17,37 @@ class Creation {
     }
 
     class Producer {
-        fun fromJust(): Observable<String> = Observable.just("1","2", "3")
-        fun fromIterable(): Observable<String> = Observable.fromIterable(listOf("1","2", "3"))
+        fun fromJust(): Observable<String> = Observable.just("1", "2", "3")
+        fun fromIterable(): Observable<String> = Observable.fromIterable(listOf("1", "2", "3"))
         fun fromInterval(): Observable<Long> = Observable.interval(2, TimeUnit.SECONDS)
         fun fromTimer(): Observable<Long> = Observable.timer(3, TimeUnit.SECONDS)
         fun fromRange(): Observable<Int> = Observable.range(1, 10)
         fun fromCallable(): Observable<Boolean> = Observable.fromCallable { randomResultOperation() }
+        fun fromCreate(): Observable<String> = Observable.create(observableOnSubscribe)
 
         private fun randomResultOperation(): Boolean {
             Thread.sleep(Random.nextLong(1000))
             return arrayOf(true, false)[Random.nextInt(2)]
         }
+
+        private val observableOnSubscribe = ObservableOnSubscribe<String> { emitter ->
+            try {
+                for (i in 1..10) randomResultOperation().let {
+                    Log.d(TAG, "emitter.onNext(\"Have data. Result = $it\")")
+                    emitter?.onNext("Have data. Result = $it")
+                }
+                Log.d(TAG, "emitter.onComplete()")
+                emitter?.onComplete()
+            } catch (t: Throwable) {
+                Log.d(TAG, "emitter.onError(\"Error loading data\")")
+                emitter?.onError(RuntimeException("Error loading data"))
+            }
+        }
     }
 
-    class Consumer(val producer: Producer) {
+    class Consumer(private val producer: Producer) {
 
-        val stringObserver = object : Observer<String> {
+        private val stringObserver = object : Observer<String> {
             var disposable: Disposable? = null
 
             override fun onSubscribe(d: Disposable?) {
@@ -47,7 +64,7 @@ class Creation {
             }
 
             override fun onComplete() {
-                Log.d(TAG, "ostringObserver -> nComplete()")
+                Log.d(TAG, "stringObserver -> nComplete()")
             }
         }
 
@@ -58,7 +75,8 @@ class Creation {
 //            execInterval()
 //            execTimer()
 //            execRange()
-            for ( i in 1..10 ) execCallable()
+//            for ( i in 1..10 ) execCallable()
+            execCreate()
         }
 
         private fun execJust() {
@@ -70,8 +88,8 @@ class Creation {
             Log.d(TAG, "execLambda()")
             producer.fromJust().subscribe(
                 { s -> Log.d(TAG, "execLambda(), onNext(), s = $s") },
-                { e -> Log.d(TAG, "execLambda(), onError(), e = ${e?.message}")},
-                { Log.d(TAG, "execLambda(), onComplete()")}
+                { e -> Log.d(TAG, "execLambda(), onError(), e = ${e?.message}") },
+                { Log.d(TAG, "execLambda(), onComplete()") }
             )
         }
 
@@ -92,8 +110,8 @@ class Creation {
                         Log.d(TAG, "execInterval(), dispose()")
                     }
                 },
-                { e -> Log.d(TAG, "execInterval(), onError(), e = ${e?.message}")},
-                { Log.d(TAG, "execInterval(), onComplete()")}
+                { e -> Log.d(TAG, "execInterval(), onError(), e = ${e?.message}") },
+                { Log.d(TAG, "execInterval(), onComplete()") }
             )
         }
 
@@ -101,8 +119,8 @@ class Creation {
             Log.d(TAG, "execTimer()")
             producer.fromTimer().subscribe(
                 { l -> Log.d(TAG, "execTimer(), onNext(), l = $l") },
-                { e -> Log.d(TAG, "execTimer(), onError(), e = ${e?.message}")},
-                { Log.d(TAG, "execTimer(), onComplete()")}
+                { e -> Log.d(TAG, "execTimer(), onError(), e = ${e?.message}") },
+                { Log.d(TAG, "execTimer(), onComplete()") }
             )
         }
 
@@ -110,18 +128,21 @@ class Creation {
             Log.d(TAG, "execRange()")
             producer.fromRange().subscribe(
                 { i -> Log.d(TAG, "execRange(), onNext(), i = $i") },
-                { e -> Log.d(TAG, "execRange(), onError(), e = ${e?.message}")},
-                { Log.d(TAG, "execRange(), onComplete()")}
-            )
-        }
-        
-        private fun execCallable() {
-            producer.fromCallable().subscribe(
-                { b -> Log.d(TAG, "execCallable(), onNext(), b = $b") },
-                { e -> Log.d(TAG, "execCallable(), onError(), e = ${e?.message}")},
-                { Log.d(TAG, "execCallable(), onComplete()")}
+                { e -> Log.d(TAG, "execRange(), onError(), e = ${e?.message}") },
+                { Log.d(TAG, "execRange(), onComplete()") }
             )
         }
 
+        private fun execCallable() {
+            producer.fromCallable().subscribe(
+                { b -> Log.d(TAG, "execCallable(), onNext(), b = $b") },
+                { e -> Log.d(TAG, "execCallable(), onError(), e = ${e?.message}") },
+                { Log.d(TAG, "execCallable(), onComplete()") }
+            )
+        }
+
+        private fun execCreate() {
+            producer.fromCreate().subscribe(stringObserver)
+        }
     }
 }

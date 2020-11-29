@@ -7,6 +7,7 @@ import com.chplalex.githubviewer.R
 import com.chplalex.githubviewer.mvp.presenter.MainPresenter
 import com.chplalex.githubviewer.mvp.view.MainView
 import com.chplalex.githubviewer.rx.Creation
+import com.chplalex.githubviewer.rx.Operators
 import moxy.MvpAppCompatActivity
 import moxy.ktx.moxyPresenter
 import ru.terrakok.cicerone.android.support.SupportAppNavigator
@@ -24,7 +25,8 @@ class MainActivity : MvpAppCompatActivity(), MainView {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        Creation().exec()
+        //Creation().exec()
+        Operators().exec()
     }
 
     /**
