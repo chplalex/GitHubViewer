@@ -1,10 +1,12 @@
 package com.chplalex.githubviewer.mvp.model.repo
 
 import com.chplalex.githubviewer.mvp.model.entity.GithubUser
+import io.reactivex.rxjava3.core.Observable
+import io.reactivex.rxjava3.schedulers.Schedulers
 
 class GithubUsersRepo {
 
-    private val repositories = listOf(
+    private val users = listOf(
         GithubUser("login1"),
         GithubUser("login2"),
         GithubUser("login3"),
@@ -13,10 +15,15 @@ class GithubUsersRepo {
         GithubUser("login6")
     )
 
-    fun getUsers(): List<GithubUser> = repositories
+//    Версия до rx
+//
+//    fun getUsers(): List<GithubUser> = repositories
+//
+//    fun getUser(login: String) = GithubUser(login)
+//    }
 
-    fun getUser(login: String): GithubUser {
-        // должен быть запрос в репозиторий по логину и возврат значения или exception
-        return GithubUser(login)
-    }
+
+    fun getUsers(): Observable<List<GithubUser>> = Observable.fromCallable() { users }
+        .subscribeOn(Schedulers.io())
+
 }

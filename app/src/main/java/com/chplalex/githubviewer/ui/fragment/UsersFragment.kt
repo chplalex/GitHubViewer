@@ -12,6 +12,7 @@ import com.chplalex.githubviewer.mvp.model.repo.GithubUsersRepo
 import com.chplalex.githubviewer.mvp.presenter.UsersPresenter
 import com.chplalex.githubviewer.mvp.view.UsersView
 import com.chplalex.githubviewer.ui.adapter.UsersRvAdapter
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import kotlinx.android.synthetic.main.fragment_users.*
 import moxy.MvpAppCompatFragment
 import moxy.ktx.moxyPresenter
@@ -23,7 +24,7 @@ class UsersFragment : MvpAppCompatFragment(), UsersView, BackButtonListener {
     }
 
     private val presenter by moxyPresenter {
-        UsersPresenter(App.instance.router, GithubUsersRepo())
+        UsersPresenter(App.instance.router, GithubUsersRepo(), AndroidSchedulers.mainThread())
     }
 
     private val adapter by lazy {
