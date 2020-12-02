@@ -13,7 +13,7 @@ class UserPresenter(
 
     override fun onFirstViewAttach() {
         super.onFirstViewAttach()
-        viewState.update(user.login)
+        user.login?.let { viewState.update(it) }
     }
 
     fun backClick(): Boolean {

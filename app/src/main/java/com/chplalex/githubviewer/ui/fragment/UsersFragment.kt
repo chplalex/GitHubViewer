@@ -8,10 +8,12 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.chplalex.githubviewer.ui.App
 import com.chplalex.githubviewer.ui.BackButtonListener
 import com.chplalex.githubviewer.R
-import com.chplalex.githubviewer.mvp.model.repo.GithubUsersRepo
+import com.chplalex.githubviewer.mvp.model.repo.ApiHolder
+import com.chplalex.githubviewer.mvp.model.repo.RetrofitGithubUsersRepo
 import com.chplalex.githubviewer.mvp.presenter.UsersPresenter
 import com.chplalex.githubviewer.mvp.view.UsersView
 import com.chplalex.githubviewer.ui.adapter.UsersRvAdapter
+import com.chplalex.githubviewer.ui.imageloader.GlideImageLoader
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import kotlinx.android.synthetic.main.fragment_users.*
 import moxy.MvpAppCompatFragment
@@ -24,11 +26,11 @@ class UsersFragment : MvpAppCompatFragment(), UsersView, BackButtonListener {
     }
 
     private val presenter by moxyPresenter {
-        UsersPresenter(App.instance.router, GithubUsersRepo(), AndroidSchedulers.mainThread())
+        UsersPresenter(App.instance.router, RetrofitGithubUsersRepo(ApiHolder.githubApi), AndroidSchedulers.mainThread())
     }
 
     private val adapter by lazy {
-        UsersRvAdapter(presenter.usersListPresenter)
+        UsersRvAdapter(presenter.usersListPresenter, GlideImageLoader())
     }
 
     override fun onCreateView(

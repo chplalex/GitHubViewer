@@ -4,6 +4,7 @@ import android.util.Log
 import com.chplalex.githubviewer.TAG
 import com.chplalex.githubviewer.mvp.model.entity.GithubUser
 import com.chplalex.githubviewer.mvp.model.repo.GithubUsersRepo
+import com.chplalex.githubviewer.mvp.model.repo.IGithubUsersRepo
 import com.chplalex.githubviewer.mvp.presenter.list.IUsersListPresenter
 import com.chplalex.githubviewer.mvp.view.UsersView
 import com.chplalex.githubviewer.mvp.view.list.UserItemView
@@ -17,7 +18,7 @@ import ru.terrakok.cicerone.Router
 
 class UsersPresenter(
     private val router: Router,
-    private val usersRepo: GithubUsersRepo,
+    private val usersRepo: IGithubUsersRepo,
     private val scheduler: Scheduler
 ) : MvpPresenter<UsersView>() {
 
@@ -29,7 +30,8 @@ class UsersPresenter(
 
         override fun bindView(view: UserItemView) {
             val user = users[view.pos]
-            view.setLogin(user.login)
+            user.login?.let { view.setLogin(it) }
+            user.avatarUrl?.let { view.loadAvatar(it) }
         }
 
         override fun getCount() = users.size

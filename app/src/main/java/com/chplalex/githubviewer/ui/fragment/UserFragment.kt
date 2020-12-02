@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import com.chplalex.githubviewer.R
 import com.chplalex.githubviewer.mvp.model.entity.GithubUser
-import com.chplalex.githubviewer.mvp.model.repo.GithubUsersRepo
 import com.chplalex.githubviewer.mvp.presenter.UserPresenter
 import com.chplalex.githubviewer.mvp.view.UserView
 import com.chplalex.githubviewer.ui.App
@@ -41,7 +40,7 @@ class UserFragment() : MvpAppCompatFragment(), UserView, BackButtonListener {
     }
 
     override fun update(login: String) {
-        textLogin.text = login
+        txtUserLogin.text = login
     }
 
     override fun backPressed() = presenter.backClick()
