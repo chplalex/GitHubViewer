@@ -6,7 +6,7 @@ data class GithubUserRepo (
     @Expose val id: Int,
     @Expose val name: String,
     @Expose val htmlUrl: String,
-    val createdAt: Long,
-    val updatedAt: Long,
-    val pushedAt: Long,
+    @Expose val createdAt: String,
+    @Expose val updatedAt: String,
+    @Expose val pushedAt: String,
     @Expose val forksCount: Int)
