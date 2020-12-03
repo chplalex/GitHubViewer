@@ -1,14 +1,17 @@
 package com.chplalex.githubviewer.ui.fragment
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.chplalex.githubviewer.ui.App
 import com.chplalex.githubviewer.ui.BackButtonListener
 import com.chplalex.githubviewer.R
-import com.chplalex.githubviewer.mvp.model.repo.ApiHolder
+import com.chplalex.githubviewer.TAG
+import com.chplalex.githubviewer.mvp.model.api.ApiHolder
 import com.chplalex.githubviewer.mvp.model.repo.RetrofitGithubUsersRepo
 import com.chplalex.githubviewer.mvp.presenter.UsersPresenter
 import com.chplalex.githubviewer.mvp.view.UsersView
@@ -48,6 +51,11 @@ class UsersFragment : MvpAppCompatFragment(), UsersView, BackButtonListener {
 
     override fun updateUsersList() {
         adapter.notifyDataSetChanged()
+    }
+
+    override fun showExitMessage() {
+        Log.d(TAG, "showExitMessage()")
+        Toast.makeText(activity, "Для выхода из приложения нажмите назад еще один раз", Toast.LENGTH_SHORT)
     }
 
     override fun backPressed() = presenter.backClick()

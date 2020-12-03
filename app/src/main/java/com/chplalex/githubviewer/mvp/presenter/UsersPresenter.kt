@@ -1,18 +1,17 @@
 package com.chplalex.githubviewer.mvp.presenter
 
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import com.chplalex.githubviewer.TAG
 import com.chplalex.githubviewer.mvp.model.entity.GithubUser
-import com.chplalex.githubviewer.mvp.model.repo.GithubUsersRepo
 import com.chplalex.githubviewer.mvp.model.repo.IGithubUsersRepo
 import com.chplalex.githubviewer.mvp.presenter.list.IUsersListPresenter
 import com.chplalex.githubviewer.mvp.view.UsersView
-import com.chplalex.githubviewer.mvp.view.list.UserItemView
+import com.chplalex.githubviewer.mvp.view.list.IUserItemView
 import com.chplalex.githubviewer.navigation.Screens
 import io.reactivex.rxjava3.core.Scheduler
-import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.disposables.Disposable
-import io.reactivex.rxjava3.kotlin.addTo
 import moxy.MvpPresenter
 import ru.terrakok.cicerone.Router
 
@@ -24,11 +23,11 @@ class UsersPresenter(
 
     class UsersListPresenter : IUsersListPresenter {
 
-        override var itemClickListener: ((UserItemView) -> Unit)? = null
+        override var itemClickListener: ((IUserItemView) -> Unit)? = null
 
         val users = mutableListOf<GithubUser>()
 
-        override fun bindView(view: UserItemView) {
+        override fun bindView(view: IUserItemView) {
             val user = users[view.pos]
             user.login?.let { view.setLogin(it) }
             user.avatarUrl?.let { view.loadAvatar(it) }
@@ -38,6 +37,7 @@ class UsersPresenter(
     }
 
     val usersListPresenter = UsersListPresenter()
+
     private var disposable: Disposable? = null
 
     override fun onFirstViewAttach() {
@@ -65,9 +65,25 @@ class UsersPresenter(
                 })
     }
 
+    private var flagExit = false
+
     fun backClick(): Boolean {
         router.exit()
         return true
+
+        Log.d(TAG, "presenter.backClick(), flag = $flagExit")
+        if (flagExit) {
+            router.exit()
+            return true
+        } else {
+            flagExit = true
+            Handler(Looper.getMainLooper()).postDelayed(kotlinx.coroutines.Runnable {
+                Log.d(TAG, "presenter.backClick() -> runnable -> flagExit -> false ")
+                flagExit = false
+                                                                                    }, 2000)
+            viewState.showExitMessage()
+            return false
+        }
     }
 
     override fun onDestroy() {

@@ -1,6 +1,6 @@
 package com.chplalex.githubviewer.mvp.view.list
 
-interface UserItemView : IItemView {
+interface IUserItemView : IItemView {
     fun setLogin(login: String)
     fun loadAvatar(url: String)
 }

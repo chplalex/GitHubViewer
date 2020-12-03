@@ -3,25 +3,22 @@ package com.chplalex.githubviewer.ui.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.chplalex.githubviewer.R
-import com.chplalex.githubviewer.mvp.presenter.list.IUsersListPresenter
-import com.chplalex.githubviewer.mvp.view.list.IUserItemView
-import com.chplalex.githubviewer.ui.imageloader.IImageLoader
+import com.chplalex.githubviewer.mvp.presenter.list.IUserReposListPresenter
+import com.chplalex.githubviewer.mvp.view.list.IUserReposItemView
 import kotlinx.android.extensions.LayoutContainer
-import kotlinx.android.synthetic.main.item_user.view.*
+import kotlinx.android.synthetic.main.item_repo.view.*
 
-class UsersRvAdapter(
-    val presenter: IUsersListPresenter,
-    val imageLoader: IImageLoader<ImageView>
-) : RecyclerView.Adapter<UsersRvAdapter.ViewHolder>() {
+class UserReposRvAdapter(
+    val presenter: IUserReposListPresenter
+) : RecyclerView.Adapter<UserReposRvAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
         ViewHolder(
             LayoutInflater
                 .from(parent.context)
-                .inflate(R.layout.item_user, parent, false)
+                .inflate(R.layout.item_repo, parent, false)
         ).apply {
             containerView.setOnClickListener {
                 presenter.itemClickListener?.invoke(this)
@@ -36,16 +33,17 @@ class UsersRvAdapter(
     override fun getItemCount() = presenter.getCount()
 
     inner class ViewHolder(override val containerView: View) : RecyclerView.ViewHolder(containerView),
-        IUserItemView, LayoutContainer {
+        IUserReposItemView, LayoutContainer {
 
         override var pos = -1
 
-        override fun setLogin(login: String) = with(containerView) {
-            txtLogin.text = login
+        override fun setName(name: String) = with(containerView) {
+            txtRepoName.text = name
         }
 
-        override fun loadAvatar(url: String) = with(containerView) {
-            imageLoader.loadInto(url, imgAvatar)
+        override fun setForksCount(forksCount: Int) = with(containerView) {
+            txtRepoForksCount.text = forksCount.toString()
         }
     }
+
 }

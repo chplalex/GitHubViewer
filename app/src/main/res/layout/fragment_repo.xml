@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Название" />
+
+        <TextView
+            android:id="@+id/txtRepoName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="TextView" />
+
+    </TableRow>
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Создан" />
+
+        <TextView
+            android:id="@+id/txtCreatedAt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="TextView" />
+
+    </TableRow>
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Обновлён" />
+
+        <TextView
+            android:id="@+id/txtUpdatedAt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="TextView" />
+
+    </TableRow>
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Количество форков" />
+
+        <TextView
+            android:id="@+id/txtForkCount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="TextView" />
+
+    </TableRow>
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Ссылка" />
+
+        <TextView
+            android:id="@+id/txtHtmlUrl"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="TextView" />
+
+    </TableRow>
+
+
+</TableLayout>

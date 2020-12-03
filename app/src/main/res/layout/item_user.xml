@@ -1,18 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="50dp"
     xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="horizontal"
     android:foreground="?attr/selectableItemBackground"
-    android:gravity="center_vertical">
+    android:gravity="center_vertical"
+    tools:ignore="UseCompoundDrawables">
 
     <ImageView
         android:id="@+id/imgAvatar"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_margin="16dp"/>
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:padding="10dp"
+        android:contentDescription="@string/content_descr_user_avatar"
+        tools:src="@drawable/ic_github_logo" />
 
     <TextView
         android:id="@+id/txtLogin"

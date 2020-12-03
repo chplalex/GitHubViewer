@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -9,28 +8,37 @@
         android:id="@+id/imgUserAvatar"
         android:layout_width="200dp"
         android:layout_height="200dp"
-        tools:src="@drawable/ic_github_logo"/>
+        android:layout_centerHorizontal="true"
+        android:layout_margin="10dp"
+        tools:src="@drawable/ic_github_logo"
+        android:contentDescription="@string/content_descr_user_avatar" />
 
-    <LinearLayout
+    <TextView
+        android:id="@+id/txtUserLogin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/imgUserAvatar"
+        android:layout_centerHorizontal="true"
+        android:textColor="@color/design_default_color_primary"
+        android:textSize="42sp"
+        tools:text="chplalex" />
+
+    <TextView
+        android:id="@+id/lblUserRepos"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:text="@string/label_user_repos"
+        android:textSize="28sp"
+        android:textAlignment="center"
+        android:textColor="@color/design_default_color_secondary"
+        android:layout_below="@id/txtUserLogin"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvUserRepos"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center_vertical">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="10dp"
-            android:text="login:"
-            android:textColor="@color/design_default_color_secondary"
-            android:textSize="28sp" />
-
-        <TextView
-            android:id="@+id/txtUserLogin"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/design_default_color_primary"
-            android:textSize="42sp"
-            tools:text="chplalex" />
-    </LinearLayout>
+        android:layout_margin="10dp"
+        android:layout_below="@id/lblUserRepos"/>
 
 </RelativeLayout>

@@ -1,4 +1,4 @@
-package com.chplalex.githubviewer.mvp.model.repo
+package com.chplalex.githubviewer.mvp.model.api
 
 import com.google.gson.FieldNamingPolicy
 import com.google.gson.GsonBuilder

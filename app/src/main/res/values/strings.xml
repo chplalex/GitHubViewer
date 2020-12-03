@@ -2,4 +2,6 @@
     <string name="app_name">GitHub Viewer</string>
     <string name="fragment_title_user">Профиль пользователя</string>
     <string name="fragment_title_users">Список пользователей</string>
+    <string name="content_descr_user_avatar">Аватар пользователя</string>
+    <string name="label_user_repos">Cписок репозиториев и число форков</string>
 </resources>

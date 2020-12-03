@@ -1,13 +1,13 @@
 package com.chplalex.githubviewer.ui.activity
 
 import android.os.Bundle
+import android.util.Log
 import com.chplalex.githubviewer.ui.App
 import com.chplalex.githubviewer.ui.BackButtonListener
 import com.chplalex.githubviewer.R
+import com.chplalex.githubviewer.TAG
 import com.chplalex.githubviewer.mvp.presenter.MainPresenter
 import com.chplalex.githubviewer.mvp.view.MainView
-import com.chplalex.githubviewer.rx.Creation
-import com.chplalex.githubviewer.rx.Operators
 import moxy.MvpAppCompatActivity
 import moxy.ktx.moxyPresenter
 import ru.terrakok.cicerone.android.support.SupportAppNavigator
@@ -42,10 +42,11 @@ class MainActivity : MvpAppCompatActivity(), MainView {
 
     override fun onBackPressed() {
         supportFragmentManager.fragments.forEach {
-            if (it is BackButtonListener && it.backPressed()) {
+            if (it is BackButtonListener) {
+                it.backPressed()
                 return
             }
-            presenter.backClick()
         }
+        presenter.backClick()
     }
 }
