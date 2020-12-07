@@ -10,16 +10,18 @@ import com.chplalex.githubviewer.R
 import com.chplalex.githubviewer.TAG
 import com.chplalex.githubviewer.mvp.model.api.ApiHolder
 import com.chplalex.githubviewer.mvp.model.entity.GithubUser
-import com.chplalex.githubviewer.mvp.model.repo.RetrofitGithubUsersRepo
+import com.chplalex.githubviewer.mvp.model.entity.room.db.Database
+import com.chplalex.githubviewer.mvp.model.repo.CacheRepos
+import com.chplalex.githubviewer.mvp.model.repo.RetrofitGithubRepos
 import com.chplalex.githubviewer.mvp.presenter.UserPresenter
 import com.chplalex.githubviewer.mvp.view.UserView
 import com.chplalex.githubviewer.ui.App
 import com.chplalex.githubviewer.ui.BackButtonListener
 import com.chplalex.githubviewer.ui.adapter.UserReposRvAdapter
 import com.chplalex.githubviewer.ui.imageloader.GlideImageLoader
+import com.chplalex.githubviewer.ui.network.AndroidNetworkStatus
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import kotlinx.android.synthetic.main.fragment_user.*
-import kotlinx.android.synthetic.main.fragment_users.*
 import moxy.MvpAppCompatFragment
 import moxy.ktx.moxyPresenter
 
@@ -41,8 +43,15 @@ class UserFragment() : MvpAppCompatFragment(), UserView, BackButtonListener {
     }
 
     private val presenter by moxyPresenter {
-        val user = arguments?.getParcelable<GithubUser>(KEY)
-        UserPresenter(App.instance.router, RetrofitGithubUsersRepo(ApiHolder.githubApi), AndroidSchedulers.mainThread(), user!!)
+        val user = arguments?.getParcelable<GithubUser>(KEY) ?: throw RuntimeException("User Fragment has no argument")
+        UserPresenter(
+            App.instance.router,
+            RetrofitGithubRepos(
+                ApiHolder.githubDataSource,
+                AndroidNetworkStatus(requireContext()),
+                CacheRepos(Database.getInstance())),
+            AndroidSchedulers.mainThread(),
+            user)
     }
 
     private val adapter by lazy {

@@ -5,7 +5,7 @@ import android.os.Looper
 import android.util.Log
 import com.chplalex.githubviewer.TAG
 import com.chplalex.githubviewer.mvp.model.entity.GithubUser
-import com.chplalex.githubviewer.mvp.model.repo.IGithubUsersRepo
+import com.chplalex.githubviewer.mvp.model.repo.IGithubUsers
 import com.chplalex.githubviewer.mvp.presenter.list.IUsersListPresenter
 import com.chplalex.githubviewer.mvp.view.UsersView
 import com.chplalex.githubviewer.mvp.view.list.IUserItemView
@@ -17,7 +17,7 @@ import ru.terrakok.cicerone.Router
 
 class UsersPresenter(
     private val router: Router,
-    private val usersRepo: IGithubUsersRepo,
+    private val usersRepo: IGithubUsers,
     private val scheduler: Scheduler
 ) : MvpPresenter<UsersView>() {
 

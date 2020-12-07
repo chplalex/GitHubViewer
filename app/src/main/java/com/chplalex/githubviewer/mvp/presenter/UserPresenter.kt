@@ -3,8 +3,9 @@ package com.chplalex.githubviewer.mvp.presenter
 import android.util.Log
 import com.chplalex.githubviewer.TAG
 import com.chplalex.githubviewer.mvp.model.entity.GithubUser
-import com.chplalex.githubviewer.mvp.model.entity.GithubUserRepo
-import com.chplalex.githubviewer.mvp.model.repo.IGithubUsersRepo
+import com.chplalex.githubviewer.mvp.model.entity.GithubRepo
+import com.chplalex.githubviewer.mvp.model.repo.IGithubRepos
+import com.chplalex.githubviewer.mvp.model.repo.IGithubUsers
 import com.chplalex.githubviewer.mvp.presenter.list.IUserReposListPresenter
 import com.chplalex.githubviewer.mvp.view.UserView
 import com.chplalex.githubviewer.mvp.view.list.IUserReposItemView
@@ -15,14 +16,14 @@ import ru.terrakok.cicerone.Router
 
 class UserPresenter(
     private val router: Router,
-    private val usersRepo: IGithubUsersRepo,
+    private val repos: IGithubRepos,
     private val scheduler: Scheduler,
     private val user: GithubUser
 ) : MvpPresenter<UserView>() {
 
     class UserReposListPresenter : IUserReposListPresenter {
 
-        val repos = mutableListOf<GithubUserRepo>()
+        val repos = mutableListOf<GithubRepo>()
 
         override var itemClickListener: ((IUserReposItemView) -> Unit)? = null
 
@@ -49,7 +50,7 @@ class UserPresenter(
 
     private fun loadRepos() {
         //TODO разобраться с нуллабельностью полей в user
-        disposable = usersRepo.getUserReposByUrl(user.reposUrl!!)
+        disposable = repos.getRepos(user)
             .observeOn(scheduler)
             .subscribe(
                 {

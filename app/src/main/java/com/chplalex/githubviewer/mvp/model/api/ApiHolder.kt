@@ -8,7 +8,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 object ApiHolder {
 
-    val githubApi: IDataSource by lazy {
+    val githubDataSource: IDataSource by lazy {
 
         val gson = GsonBuilder()
             .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)

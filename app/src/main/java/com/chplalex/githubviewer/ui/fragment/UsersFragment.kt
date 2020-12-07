@@ -12,11 +12,14 @@ import com.chplalex.githubviewer.ui.BackButtonListener
 import com.chplalex.githubviewer.R
 import com.chplalex.githubviewer.TAG
 import com.chplalex.githubviewer.mvp.model.api.ApiHolder
-import com.chplalex.githubviewer.mvp.model.repo.RetrofitGithubUsersRepo
+import com.chplalex.githubviewer.mvp.model.entity.room.db.Database
+import com.chplalex.githubviewer.mvp.model.repo.CacheUsers
+import com.chplalex.githubviewer.mvp.model.repo.RetrofitGithubUsers
 import com.chplalex.githubviewer.mvp.presenter.UsersPresenter
 import com.chplalex.githubviewer.mvp.view.UsersView
 import com.chplalex.githubviewer.ui.adapter.UsersRvAdapter
 import com.chplalex.githubviewer.ui.imageloader.GlideImageLoader
+import com.chplalex.githubviewer.ui.network.AndroidNetworkStatus
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import kotlinx.android.synthetic.main.fragment_users.*
 import moxy.MvpAppCompatFragment
@@ -29,7 +32,13 @@ class UsersFragment : MvpAppCompatFragment(), UsersView, BackButtonListener {
     }
 
     private val presenter by moxyPresenter {
-        UsersPresenter(App.instance.router, RetrofitGithubUsersRepo(ApiHolder.githubApi), AndroidSchedulers.mainThread())
+        UsersPresenter(
+            App.instance.router,
+            RetrofitGithubUsers(
+                ApiHolder.githubDataSource,
+                AndroidNetworkStatus(requireContext()),
+                CacheUsers(Database.getInstance())),
+            AndroidSchedulers.mainThread())
     }
 
     private val adapter by lazy {
