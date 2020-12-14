@@ -5,6 +5,7 @@ import com.chplalex.githubviewer.mvp.presenter.MainPresenter
 import com.chplalex.githubviewer.mvp.presenter.UserPresenter
 import com.chplalex.githubviewer.mvp.presenter.UsersPresenter
 import com.chplalex.githubviewer.ui.activity.MainActivity
+import com.chplalex.githubviewer.ui.adapter.UsersRvAdapter
 import com.chplalex.githubviewer.ui.fragment.UserFragment
 import com.chplalex.githubviewer.ui.fragment.UsersFragment
 import dagger.Component
@@ -26,6 +27,6 @@ interface AppComponent {
     fun inject(mainPresenter: MainPresenter)
     fun inject(usersPresenter: UsersPresenter)
     fun inject(userPresenter: UserPresenter)
-    fun inject(usersFragment: UsersFragment)
+    fun inject(usersRvAdapter: UsersRvAdapter)
     fun inject(userFragment: UserFragment)
 }
