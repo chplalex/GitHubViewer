@@ -5,20 +5,25 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.chplalex.githubviewer.R
 import com.chplalex.githubviewer.TAG
 import com.chplalex.githubviewer.mvp.model.entity.GithubUser
 import com.chplalex.githubviewer.mvp.presenter.UserPresenter
 import com.chplalex.githubviewer.mvp.view.UserView
+import com.chplalex.githubviewer.ui.App
 import com.chplalex.githubviewer.ui.BackButtonListener
 import com.chplalex.githubviewer.ui.adapter.UserReposRvAdapter
-import com.chplalex.githubviewer.ui.imageloader.GlideImageLoader
+import com.chplalex.githubviewer.ui.imageloader.IImageLoader
 import kotlinx.android.synthetic.main.fragment_user.*
 import moxy.MvpAppCompatFragment
 import moxy.ktx.moxyPresenter
+import javax.inject.Inject
 
 class UserFragment() : MvpAppCompatFragment(), UserView, BackButtonListener {
+
+    @Inject lateinit var imageLoader: IImageLoader<ImageView>
 
     companion object {
         private const val KEY = "USER_FRAGMENT_AGR_KEY"
@@ -31,6 +36,7 @@ class UserFragment() : MvpAppCompatFragment(), UserView, BackButtonListener {
     }
 
     override fun init() {
+        App.instance.appСomponent.inject(this)
         rvUserRepos.layoutManager = LinearLayoutManager(requireContext())
         rvUserRepos.adapter = adapter
     }
@@ -58,7 +64,7 @@ class UserFragment() : MvpAppCompatFragment(), UserView, BackButtonListener {
     }
 
     override fun setAvatar(url: String) {
-        GlideImageLoader().loadInto(url, imgUserAvatar)
+        imageLoader.loadInto(url, imgUserAvatar)
     }
 
     override fun updateReposList() {

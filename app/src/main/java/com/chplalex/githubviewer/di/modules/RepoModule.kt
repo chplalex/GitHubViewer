@@ -1,8 +1,11 @@
 package com.chplalex.githubviewer.di.modules
 
+import android.widget.ImageView
 import com.chplalex.githubviewer.mvp.model.api.IDataSource
 import com.chplalex.githubviewer.mvp.model.network.INetworkStatus
 import com.chplalex.githubviewer.mvp.model.repo.*
+import com.chplalex.githubviewer.ui.imageloader.GlideImageLoader
+import com.chplalex.githubviewer.ui.imageloader.IImageLoader
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
@@ -33,5 +36,9 @@ class RepoModule {
         networkStatus,
         cacheRepos
     )
+
+    @Singleton
+    @Provides
+    fun imageLoader(): IImageLoader<ImageView> = GlideImageLoader()
 
 }

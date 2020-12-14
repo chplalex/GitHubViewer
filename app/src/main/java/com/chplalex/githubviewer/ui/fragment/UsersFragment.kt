@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.chplalex.githubviewer.ui.BackButtonListener
@@ -12,13 +13,17 @@ import com.chplalex.githubviewer.R
 import com.chplalex.githubviewer.TAG
 import com.chplalex.githubviewer.mvp.presenter.UsersPresenter
 import com.chplalex.githubviewer.mvp.view.UsersView
+import com.chplalex.githubviewer.ui.App
 import com.chplalex.githubviewer.ui.adapter.UsersRvAdapter
-import com.chplalex.githubviewer.ui.imageloader.GlideImageLoader
+import com.chplalex.githubviewer.ui.imageloader.IImageLoader
 import kotlinx.android.synthetic.main.fragment_users.*
 import moxy.MvpAppCompatFragment
 import moxy.ktx.moxyPresenter
+import javax.inject.Inject
 
 class UsersFragment : MvpAppCompatFragment(), UsersView, BackButtonListener {
+
+    @Inject lateinit var imageLoader: IImageLoader<ImageView>
 
     companion object {
         fun newInstance() = UsersFragment()
@@ -29,7 +34,7 @@ class UsersFragment : MvpAppCompatFragment(), UsersView, BackButtonListener {
     }
 
     private val adapter by lazy {
-        UsersRvAdapter(presenter.usersListPresenter, GlideImageLoader())
+        UsersRvAdapter(presenter.usersListPresenter, imageLoader)
     }
 
     override fun onCreateView(
@@ -41,6 +46,7 @@ class UsersFragment : MvpAppCompatFragment(), UsersView, BackButtonListener {
     }
 
     override fun init() {
+        App.instance.appСomponent.inject(this)
         rv_users.layoutManager = LinearLayoutManager(requireContext())
         rv_users.adapter = adapter
     }
