@@ -18,12 +18,6 @@ class UsersRvAdapter(
     val presenter: IUsersListPresenter
 ) : RecyclerView.Adapter<UsersRvAdapter.ViewHolder>() {
 
-    @Inject lateinit var imageLoader: IImageLoader<ImageView>
-
-    init {
-        App.instance.appСomponent.inject(this)
-    }
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
         ViewHolder(
             LayoutInflater
@@ -44,6 +38,12 @@ class UsersRvAdapter(
 
     inner class ViewHolder(override val containerView: View) : RecyclerView.ViewHolder(containerView),
         IUserItemView, LayoutContainer {
+
+        @Inject lateinit var imageLoader: IImageLoader<ImageView>
+
+        init {
+            App.instance.appСomponent.inject(this)
+        }
 
         override var pos = -1
 

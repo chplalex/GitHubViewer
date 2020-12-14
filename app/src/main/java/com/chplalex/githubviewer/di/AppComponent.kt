@@ -27,6 +27,6 @@ interface AppComponent {
     fun inject(mainPresenter: MainPresenter)
     fun inject(usersPresenter: UsersPresenter)
     fun inject(userPresenter: UserPresenter)
-    fun inject(usersRvAdapter: UsersRvAdapter)
+    fun inject(viewHolder: UsersRvAdapter.ViewHolder)
     fun inject(userFragment: UserFragment)
 }
