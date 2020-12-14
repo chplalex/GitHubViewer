@@ -7,20 +7,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.chplalex.githubviewer.ui.App
 import com.chplalex.githubviewer.ui.BackButtonListener
 import com.chplalex.githubviewer.R
 import com.chplalex.githubviewer.TAG
-import com.chplalex.githubviewer.mvp.model.api.ApiHolder
-import com.chplalex.githubviewer.mvp.model.entity.room.db.Database
-import com.chplalex.githubviewer.mvp.model.repo.CacheUsers
-import com.chplalex.githubviewer.mvp.model.repo.RetrofitGithubUsers
 import com.chplalex.githubviewer.mvp.presenter.UsersPresenter
 import com.chplalex.githubviewer.mvp.view.UsersView
 import com.chplalex.githubviewer.ui.adapter.UsersRvAdapter
 import com.chplalex.githubviewer.ui.imageloader.GlideImageLoader
-import com.chplalex.githubviewer.ui.network.AndroidNetworkStatus
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import kotlinx.android.synthetic.main.fragment_users.*
 import moxy.MvpAppCompatFragment
 import moxy.ktx.moxyPresenter
@@ -32,13 +25,7 @@ class UsersFragment : MvpAppCompatFragment(), UsersView, BackButtonListener {
     }
 
     private val presenter by moxyPresenter {
-        UsersPresenter(
-            App.instance.router,
-            RetrofitGithubUsers(
-                ApiHolder.githubDataSource,
-                AndroidNetworkStatus(requireContext()),
-                CacheUsers(Database.getInstance())),
-            AndroidSchedulers.mainThread())
+        UsersPresenter()
     }
 
     private val adapter by lazy {
@@ -64,7 +51,11 @@ class UsersFragment : MvpAppCompatFragment(), UsersView, BackButtonListener {
 
     override fun showExitMessage() {
         Log.d(TAG, "showExitMessage()")
-        Toast.makeText(activity, "Для выхода из приложения нажмите назад еще один раз", Toast.LENGTH_SHORT)
+        Toast.makeText(
+            activity,
+            "Для выхода из приложения нажмите назад еще один раз",
+            Toast.LENGTH_SHORT
+        )
     }
 
     override fun backPressed() = presenter.backClick()

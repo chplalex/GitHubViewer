@@ -9,17 +9,22 @@ import com.chplalex.githubviewer.mvp.model.repo.IGithubUsers
 import com.chplalex.githubviewer.mvp.presenter.list.IUserReposListPresenter
 import com.chplalex.githubviewer.mvp.view.UserView
 import com.chplalex.githubviewer.mvp.view.list.IUserReposItemView
+import com.chplalex.githubviewer.ui.App
 import io.reactivex.rxjava3.core.Scheduler
 import io.reactivex.rxjava3.disposables.Disposable
 import moxy.MvpPresenter
 import ru.terrakok.cicerone.Router
+import javax.inject.Inject
 
-class UserPresenter(
-    private val router: Router,
-    private val repos: IGithubRepos,
-    private val scheduler: Scheduler,
-    private val user: GithubUser
-) : MvpPresenter<UserView>() {
+class UserPresenter(private val user: GithubUser) : MvpPresenter<UserView>() {
+
+    @Inject lateinit var repos: IGithubRepos
+    @Inject lateinit var scheduler: Scheduler
+    @Inject lateinit var router: Router
+
+    init {
+        App.instance.appСomponent.inject(this)
+    }
 
     class UserReposListPresenter : IUserReposListPresenter {
 

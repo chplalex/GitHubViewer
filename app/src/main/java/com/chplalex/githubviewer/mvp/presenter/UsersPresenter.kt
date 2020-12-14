@@ -10,30 +10,36 @@ import com.chplalex.githubviewer.mvp.presenter.list.IUsersListPresenter
 import com.chplalex.githubviewer.mvp.view.UsersView
 import com.chplalex.githubviewer.mvp.view.list.IUserItemView
 import com.chplalex.githubviewer.navigation.Screens
+import com.chplalex.githubviewer.ui.App
 import io.reactivex.rxjava3.core.Scheduler
 import io.reactivex.rxjava3.disposables.Disposable
 import moxy.MvpPresenter
 import ru.terrakok.cicerone.Router
+import javax.inject.Inject
 
-class UsersPresenter(
-    private val router: Router,
-    private val usersRepo: IGithubUsers,
-    private val scheduler: Scheduler
-) : MvpPresenter<UsersView>() {
+class UsersPresenter() : MvpPresenter<UsersView>() {
+
+    @Inject lateinit var users: IGithubUsers
+    @Inject lateinit var scheduler: Scheduler
+    @Inject lateinit var router: Router
+
+    init {
+        App.instance.appСomponent.inject(this)
+    }
 
     class UsersListPresenter : IUsersListPresenter {
 
         override var itemClickListener: ((IUserItemView) -> Unit)? = null
 
-        val users = mutableListOf<GithubUser>()
+        val usersList = mutableListOf<GithubUser>()
 
         override fun bindView(view: IUserItemView) {
-            val user = users[view.pos]
+            val user = usersList[view.pos]
             user.login?.let { view.setLogin(it) }
             user.avatarUrl?.let { view.loadAvatar(it) }
         }
 
-        override fun getCount() = users.size
+        override fun getCount() = usersList.size
     }
 
     val usersListPresenter = UsersListPresenter()
@@ -46,18 +52,18 @@ class UsersPresenter(
         loadData()
 
         usersListPresenter.itemClickListener = { userItemView ->
-            val user = usersListPresenter.users[userItemView.pos]
+            val user = usersListPresenter.usersList[userItemView.pos]
             router.navigateTo(Screens.UserScreen(user))
         }
     }
 
     private fun loadData() {
-        disposable = usersRepo.getUsers()
+        disposable = users.getUsers()
             .observeOn(scheduler)
             .subscribe(
                 {
-                    usersListPresenter.users.clear()
-                    usersListPresenter.users.addAll(it)
+                    usersListPresenter.usersList.clear()
+                    usersListPresenter.usersList.addAll(it)
                     viewState.updateUsersList()
                 },
                 {

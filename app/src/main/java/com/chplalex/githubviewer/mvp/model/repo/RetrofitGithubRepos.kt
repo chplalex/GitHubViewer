@@ -4,8 +4,10 @@ import com.chplalex.githubviewer.mvp.model.api.IDataSource
 import com.chplalex.githubviewer.mvp.model.entity.GithubRepo
 import com.chplalex.githubviewer.mvp.model.entity.GithubUser
 import com.chplalex.githubviewer.mvp.model.network.INetworkStatus
+import com.chplalex.githubviewer.ui.App
 import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.schedulers.Schedulers
+import javax.inject.Inject
 
 class RetrofitGithubRepos(
     private val dataSource: IDataSource,
