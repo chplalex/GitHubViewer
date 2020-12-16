@@ -36,12 +36,12 @@ class UserFragment() : MvpAppCompatFragment(), UserView, BackButtonListener {
     }
 
     override fun init() {
-        App.instance.appСomponent.inject(this)
         rvUserRepos.layoutManager = LinearLayoutManager(requireContext())
         rvUserRepos.adapter = adapter
     }
 
     private val presenter by moxyPresenter {
+        App.instance.createUserSubcomponent()?.inject(this)
         val user = arguments?.getParcelable<GithubUser>(KEY)
             ?: throw RuntimeException("User Fragment has no argument")
         UserPresenter(user)
@@ -70,6 +70,10 @@ class UserFragment() : MvpAppCompatFragment(), UserView, BackButtonListener {
     override fun updateReposList() {
         Log.d(TAG,"updateReposList(), repos count = ${presenter.userReposListPresenter.repos.size}")
         adapter.notifyDataSetChanged()
+    }
+
+    override fun destroy() {
+        App.instance.destroyUserSubcomponent()
     }
 
     override fun backPressed() = presenter.backClick()

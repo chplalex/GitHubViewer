@@ -8,4 +8,5 @@ interface UsersView : MvpView {
     fun init()
     fun updateUsersList()
     fun showExitMessage()
+    fun destroy()
 }

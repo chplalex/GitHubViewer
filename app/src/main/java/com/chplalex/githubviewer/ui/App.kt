@@ -1,10 +1,11 @@
 package com.chplalex.githubviewer.ui
 
 import android.app.Application
-import com.chplalex.githubviewer.di.AppComponent
-import com.chplalex.githubviewer.di.DaggerAppComponent
+import com.chplalex.githubviewer.di.components.AppComponent
+import com.chplalex.githubviewer.di.components.DaggerAppComponent
+import com.chplalex.githubviewer.di.components.UserSubcomponent
+import com.chplalex.githubviewer.di.components.UsersSubcomponent
 import com.chplalex.githubviewer.di.modules.AppModule
-import com.chplalex.githubviewer.mvp.model.entity.room.db.Database
 
 class App : Application() {
 
@@ -13,6 +14,11 @@ class App : Application() {
     }
 
     lateinit var appСomponent: AppComponent
+        private set
+    var usersSubcomponent: UsersSubcomponent? = null
+        private set
+    var userSubcomponent: UserSubcomponent? = null
+        private set
 
     override fun onCreate() {
         super.onCreate()
@@ -21,5 +27,21 @@ class App : Application() {
         appСomponent = DaggerAppComponent.builder()
             .appModule(AppModule(this))
             .build()
+    }
+
+    fun createUsersSubcomponent() = appСomponent.usersSubcomponent().also {
+        usersSubcomponent = it
+    }
+
+    fun destroyUsersSubcomponent() {
+        usersSubcomponent = null
+    }
+
+    fun createUserSubcomponent() = usersSubcomponent?.reposSubcomponent().also {
+        userSubcomponent = it
+    }
+
+    fun destroyUserSubcomponent() {
+        userSubcomponent = null
     }
 }

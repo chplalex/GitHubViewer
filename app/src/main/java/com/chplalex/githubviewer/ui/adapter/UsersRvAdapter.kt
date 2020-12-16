@@ -42,7 +42,7 @@ class UsersRvAdapter(
         @Inject lateinit var imageLoader: IImageLoader<ImageView>
 
         init {
-            App.instance.appСomponent.inject(this)
+            App.instance.usersSubcomponent?.inject(this)
         }
 
         override var pos = -1

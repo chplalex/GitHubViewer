@@ -10,8 +10,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.chplalex.githubviewer.ui.BackButtonListener
 import com.chplalex.githubviewer.R
 import com.chplalex.githubviewer.TAG
+import com.chplalex.githubviewer.di.components.UsersSubcomponent
 import com.chplalex.githubviewer.mvp.presenter.UsersPresenter
 import com.chplalex.githubviewer.mvp.view.UsersView
+import com.chplalex.githubviewer.ui.App
 import com.chplalex.githubviewer.ui.adapter.UsersRvAdapter
 import kotlinx.android.synthetic.main.fragment_users.*
 import moxy.MvpAppCompatFragment
@@ -24,6 +26,7 @@ class UsersFragment : MvpAppCompatFragment(), UsersView, BackButtonListener {
     }
 
     private val presenter by moxyPresenter {
+        App.instance.createUsersSubcomponent()
         UsersPresenter()
     }
 
@@ -55,6 +58,10 @@ class UsersFragment : MvpAppCompatFragment(), UsersView, BackButtonListener {
             "Для выхода из приложения нажмите назад еще один раз",
             Toast.LENGTH_SHORT
         )
+    }
+
+    override fun destroy() {
+        App.instance.destroyUsersSubcomponent()
     }
 
     override fun backPressed() = presenter.backClick()

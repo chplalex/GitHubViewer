@@ -5,7 +5,6 @@ import com.chplalex.githubviewer.TAG
 import com.chplalex.githubviewer.mvp.model.entity.GithubUser
 import com.chplalex.githubviewer.mvp.model.entity.GithubRepo
 import com.chplalex.githubviewer.mvp.model.repo.IGithubRepos
-import com.chplalex.githubviewer.mvp.model.repo.IGithubUsers
 import com.chplalex.githubviewer.mvp.presenter.list.IUserReposListPresenter
 import com.chplalex.githubviewer.mvp.view.UserView
 import com.chplalex.githubviewer.mvp.view.list.IUserReposItemView
@@ -23,7 +22,7 @@ class UserPresenter(private val user: GithubUser) : MvpPresenter<UserView>() {
     @Inject lateinit var router: Router
 
     init {
-        App.instance.appСomponent.inject(this)
+        App.instance.userSubcomponent?.inject(this)
     }
 
     class UserReposListPresenter : IUserReposListPresenter {
@@ -77,6 +76,7 @@ class UserPresenter(private val user: GithubUser) : MvpPresenter<UserView>() {
     override fun onDestroy() {
         super.onDestroy()
         disposable?.dispose()
+        viewState.destroy()
     }
 
 }

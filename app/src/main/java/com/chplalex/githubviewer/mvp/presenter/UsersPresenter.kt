@@ -24,7 +24,7 @@ class UsersPresenter() : MvpPresenter<UsersView>() {
     @Inject lateinit var router: Router
 
     init {
-        App.instance.appСomponent.inject(this)
+        App.instance.usersSubcomponent?.inject(this)
     }
 
     class UsersListPresenter : IUsersListPresenter {
@@ -95,5 +95,6 @@ class UsersPresenter() : MvpPresenter<UsersView>() {
     override fun onDestroy() {
         super.onDestroy()
         disposable?.dispose()
+        viewState.destroy()
     }
 }

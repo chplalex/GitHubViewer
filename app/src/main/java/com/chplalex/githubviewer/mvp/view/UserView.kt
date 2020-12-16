@@ -9,4 +9,5 @@ interface UserView : MvpView {
     fun setLogin(login: String)
     fun setAvatar(url: String)
     fun updateReposList()
+    fun destroy()
 }
